@@ -1,0 +1,19 @@
+---
+name: CI
+on:
+  push:
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1.4.1
+      - name: Set up Cygwin
+        uses: egor-tensin/setup-cygwin@v4
+      - name: Clone and build OCaml
+        run: sh ./scripts/build.sh
+        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+ 
+
