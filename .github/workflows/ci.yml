@@ -9,11 +9,42 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install winget
+        uses: Cyberboss/install-winget@v1
       - uses: ilammy/msvc-dev-cmd@v1.4.1
-      - name: Set up Cygwin
-        uses: egor-tensin/setup-cygwin@v4
+      - name: Install NSIS EnvVar Plugin
+        run: |
+          $ZipFileName = 'EnVar_plugin.zip'
+          $PluginURL = "https://nsis.sourceforge.io/mediawiki/images/7/7f/$ZipFileName"
+          Invoke-WebRequest $PluginURL -OutFile $ZipFileName
+          Expand-Archive $ZipFileName -DestinationPath $env:GITHUB_WORKSPACE/EnVar_plugin
+
+      # TODO use the following instead
+      # - name: Download EnVar plugin for NSIS
+      #   uses: carlosperate/download-file-action@v1.0.3
+      #   with:
+      #     file-url: https://nsis.sourceforge.io/mediawiki/images/7/7f/EnVar_plugin.zip
+      #     file-name: envar_plugin.zip
+      #     location: ${{ github.workspace }}
+
+      - name: Install Cygwin and MSVC via WinGet
+        run: |
+          winget install --silent --exact --disable-interactivity --accept-source-agreements --id Cygwin.Cygwin
       - name: Clone and build OCaml
-        run: sh ./scripts/build.sh
-        shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
+        run: ./scripts/build.sh
+        working-directory: ${{github.workspace}}
+        shell: C:\cygwin64\bin\bash.exe --noprofile --login --norc -eo pipefail -o igncr '{0}'
+        env:
+          CYGWIN: winsymlinks:native
+      - name: Create installer
+        uses: joncloud/makensis-action@v4.1
+        with:
+          arguments: "/V3"
+          script-file: "./nsis/Installer.nsi"
+          additional-plugin-paths: ${{github.workspace}}/EnVar_plugin/Plugins
+      - uses: actions/upload-artifact@v4
+        with:
+          name: InstallOCaml
+          path: ./nsis/InstallOCaml.exe
  
 
