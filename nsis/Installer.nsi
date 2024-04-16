@@ -2,8 +2,6 @@
 !include "MUI2.nsh"
 !include WinMessages.nsh
 
-!define MUI_ICON "ocaml-32x32.ico"
-
 ; Define installer name
 Outfile "InstallOCaml.exe"
 Name "OCaml"
@@ -36,10 +34,10 @@ Section "Install"
     SetOutPath $INSTDIR
 
     ; Copy files from dune/_build/install/default
-    File /r "dune\_build\install\default\*.*"
+    File /r "../dune\_build\install\default\*.*"
 
     ; Copy files from ocaml/_ocaml-prefix
-    File /r "ocaml\_ocaml-prefix\*.*"
+    File /r "../ocaml\_ocaml-prefix\*.*"
 
     EnVar::Check "Path" "NULL"
     Pop $0
