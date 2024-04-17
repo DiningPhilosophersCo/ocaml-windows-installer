@@ -47,4 +47,12 @@ jobs:
           name: InstallOCaml
           path: ./nsis/InstallOCaml.exe
  
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ./nsis/InstallOCaml.exe
+            ./dune/_build/install/default/*.*
+            ./ocaml/_ocaml-prefix/*.*
 
