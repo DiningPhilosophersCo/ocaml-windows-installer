@@ -46,7 +46,14 @@ jobs:
         with:
           name: InstallOCaml
           path: ./nsis/InstallOCaml.exe
- 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DunePrebuilts
+          path: ./dune/_build/install/default
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CompilerPrebuilts
+          path: ./ocaml/_ocaml-prefix/
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
