@@ -1,0 +1,9 @@
+{
+  "esy": {
+    "buildsInSource": true,
+    "build": ["ocamlopt -o hello ./hello.ml", "./hello"]
+  },
+  "dependencies": {
+    "ocaml": "5.1.5"
+  }
+}

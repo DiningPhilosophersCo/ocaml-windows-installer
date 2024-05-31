@@ -1,0 +1,18 @@
+#! /bin/sh
+
+# clone-flexdll
+#
+# Brings in flexdll, if necessary
+
+if [ -d "flexdll" ] && [ -f "flexdll/flexdll.c" ]; then
+    echo "[Flexdll] Already present, no need to clone."
+else
+    echo "[Flexdll] Cloning..."
+    git clone https://github.com/ocaml/flexdll.git
+    cd flexdll
+    # git checkout 0.43
+    cd ..
+    echo "[Flexdll] Clone successful!"
+fi
+./configure --build=x86_64-pc-cygwin --host=x86_64-pc-windows --prefix="$cur__install"
+make flexdll
