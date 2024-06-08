@@ -34,10 +34,10 @@ Section "Install"
     SetOutPath $INSTDIR
 
     ; Copy files from dune/_build/install/default
-    File /r "..\dune\_build\install\default\*.*"
+    File /r "../dune\_build\install\default\*.*"
 
     ; Copy files from ocaml/_ocaml-prefix
-    File /r "..\ocaml\_ocaml-prefix\*.*"
+    File /r "../ocaml\_ocaml-prefix\*.*"
 
     EnVar::Check "Path" "NULL"
     Pop $0

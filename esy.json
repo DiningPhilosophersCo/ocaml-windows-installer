@@ -1,0 +1,33 @@
+{
+  "name": "ocaml",
+  "version": "5.3.0",
+  "description": "OCaml compiler packaged for esy",
+  "source": "git+https://github.com/ocaml/ocaml#af4a10597364463b44a354ac636d0a7d762b18fc",
+  "override": {
+    "build": [
+      "./configure --build=x86_64-pc-cygwin --host=x86_64-pc-windows --prefix #{self.install}",
+      "make -j#{self.jobs}"
+    ],
+    "install": "make install",
+    "buildsInSource": true,
+    "exportedEnv": {
+      "OCAMLPATH": {
+        "val": "#{ocaml.lib / 'ocaml' : $OCAMLPATH}",
+        "scope": "global"
+      },
+      "OCAMLLIB": {
+        "val": "#{ocaml.lib / 'ocaml'}",
+        "scope": "global"
+      },
+      "CAML_LD_LIBRARY_PATH": {
+        "val": "#{ocaml.lib / 'ocaml' / 'stublibs' : ocaml.lib / 'ocaml' : $CAML_LD_LIBRARY_PATH}",
+        "scope": "global"
+      },
+      "OCAML_TOPLEVEL_PATH": {
+        "val": "#{ocaml.lib / 'ocaml'}",
+        "scope": "global"
+      }
+    },
+    "dependencies": {}
+  }
+}

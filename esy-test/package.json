@@ -1,0 +1,30 @@
+{
+  "esy": {
+    "release": {
+      "bin": [
+        "ocamlopt",
+        "ocamlmerlin"
+      ],
+      "includePackages": [
+        "root",
+        "@opam/merlin"
+      ]
+    },
+    "buildsInSource": true,
+    "build": [
+      "ocamlopt -o hello ./hello.ml",
+      "./hello"
+    ]
+  },
+  "dependencies": {
+    "ocaml": "5.3.0",
+    "@opam/dune": "*",
+    "@opam/merlin": "*"
+  },
+  "resolutions": {
+    "@opam/dot-merlin-reader": "DiningPhilosophersCo/merlin:dot-merlin-reader.opam#ee4d237e90d86e474cea6150157d91d1b053a28a",
+    "@opam/merlin": "DiningPhilosophersCo/merlin:merlin.opam#ee4d237e90d86e474cea6150157d91d1b053a28a",
+    "@opam/merlin-lib": "DiningPhilosophersCo/merlin:merlin-lib.opam#ee4d237e90d86e474cea6150157d91d1b053a28a",
+    "@opam/ocp-indent": "OCamlPro/ocp-indent:ocp-indent.opam#7c4d434132cebc15a8213c8be9e7323692eb0a2b"
+  }
+}
