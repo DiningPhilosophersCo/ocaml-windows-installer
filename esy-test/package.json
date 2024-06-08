@@ -1,5 +1,15 @@
 {
   "esy": {
+    "release": {
+      "bin": [
+        "ocamlopt",
+        "ocamlmerlin"
+      ],
+      "includePackages": [
+        "root",
+        "@opam/merlin"
+      ]
+    },
     "buildsInSource": true,
     "build": [
       "ocamlopt -o hello ./hello.ml",
